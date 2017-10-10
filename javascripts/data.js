@@ -3,7 +3,6 @@ const dom = require('./dom');
 let dinosaurs = [];
 
 const initializer = () => {
-  // dom.domString({ name: 'T-Rex' });
   dinoGetter();
 };
 
@@ -53,7 +52,13 @@ const dinoGetter = () => {
     results3.forEach((dino) => {
       dinosaurs.push(dino);
     });
-    console.log(dinosaurs);
+    makeDinos();  // console.log(dinosaurs);
+  });
+};
+
+const makeDinos = () => {
+  dinosaurs.forEach((dino) => {
+    dom.domString(dino);
   });
 };
 

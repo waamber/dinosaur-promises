@@ -4,7 +4,6 @@ const dom = require('./dom');
 let dinosaurs = [];
 
 const initializer = () => {
-  // dom.domString({ name: 'T-Rex' });
   dinoGetter();
 };
 
@@ -54,7 +53,13 @@ const dinoGetter = () => {
     results3.forEach((dino) => {
       dinosaurs.push(dino);
     });
-    console.log(dinosaurs);
+    makeDinos();  // console.log(dinosaurs);
+  });
+};
+
+const makeDinos = () => {
+  dinosaurs.forEach((dino) => {
+    dom.domString(dino);
   });
 };
 
@@ -108,13 +113,12 @@ module.exports = { initializer, getDinosaurs };
 
 },{"./dom":2}],2:[function(require,module,exports){
 'use strict';
-
 let output = $('#dinosaur-container');
 
 var domString = (dino) => {
   var domString = '';
   domString += `<div>`;
-  domString += `<h1>${dino.name}</h1>`;
+  domString += `<h1>${dino.type}</h1>`;
   domString += `</div>`;
   printToDom(domString);
 };
@@ -122,7 +126,6 @@ var domString = (dino) => {
 const printToDom = (strang) => {
   output.append(strang);
 };
-
 
 module.exports = { domString };
 },{}],3:[function(require,module,exports){

@@ -1,5 +1,7 @@
 body {
   background-image: url('https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2016/diddinosaurs.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 h1 {
