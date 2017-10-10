@@ -37,6 +37,21 @@ const thirdDinosaurJSON = () => {
   });
 };
 
+//ONLY WORKS IN THIS PROJECT
+// const dinoGetter = () => {
+//   Promise.all([firstDinosaurJSON(), secondDinosaurJSON(), thirdDinosaurJSON()])
+//     .then((results) => {
+//       results.forEach((result) => {
+//         result.forEach((dino) => {
+//           dinosaurs.push(dino);
+//         });
+//       });
+//       makeDinos();
+//     }).catch((error) => {
+//       console.log(error);
+//     });
+// };
+
 //CORRECT PROMISES!
 const dinoGetter = () => {
   firstDinosaurJSON().then((results) => {//.then()-happens when resolved // .catch()-happens when it rejects
