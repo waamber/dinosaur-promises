@@ -37,39 +37,40 @@ const thirdDinosaurJSON = () => {
   });
 };
 
-//ONLY WORKS IN THIS PROJECT
-// const dinoGetter = () => {
-//   Promise.all([firstDinosaurJSON(), secondDinosaurJSON(), thirdDinosaurJSON()])
-//     .then((results) => {
-//       results.forEach((result) => {
-//         result.forEach((dino) => {
-//           dinosaurs.push(dino);
-//         });
-//       });
-//       makeDinos();
-//     }).catch((error) => {
-//       console.log(error);
-//     });
-// };
-
-//CORRECT PROMISES!
-const dinoGetter = () => {
-  firstDinosaurJSON().then((results) => {//.then()-happens when resolved // .catch()-happens when it rejects
-    results.forEach((dino) => {
-      dinosaurs.push(dino);
+const allTheCats = () => {
+  return new Promise((resolve, reject) => {
+    $.ajax('./data/snacks.json').done((data) => {
+      resolve(data.cats);
+    }).fail((error) => {
+      reject(error);
     });
-    return secondDinosaurJSON();
-  }).then((results2) => {
-    results2.forEach((dino) => {
-      dinosaurs.push(dino);
-    });
-    return thirdDinosaurJSON();
-  }).then((results3) => {
-    results3.forEach((dino) => {
-      dinosaurs.push(dino);
-    });
-    makeDinos();  // console.log(dinosaurs);
   });
+};
+
+
+//ONLY WORKS IN THIS PROJECT
+const dinoGetter = () => {
+  Promise.all([firstDinosaurJSON(), secondDinosaurJSON(), thirdDinosaurJSON()])
+    .then((results) => {
+      allTheCats().then((cats) => {
+        results.forEach((result) => {
+          result.forEach((dino) => {
+            dino.snacks = [];
+            dino.catIds.forEach((catId) => { //loops through each cat id
+              cats.forEach((cat) => {
+                if (cat.id === catId) {
+                  dino.snacks.push(cat);
+                }
+              });
+            });
+            dinosaurs.push(dino);
+          });
+        });
+        makeDinos();
+      }); console.log('dinos with snacks', dinosaurs);
+    }).catch((error) => {
+      console.log(error);
+    });
 };
 
 const makeDinos = () => {
@@ -83,6 +84,26 @@ const getDinosaurs = () => {
 };
 
 module.exports = { initializer, getDinosaurs };
+
+// //CORRECT PROMISES!
+// const dinoGetter = () => {
+//   firstDinosaurJSON().then((results) => {//.then()-happens when resolved // .catch()-happens when it rejects
+//     results.forEach((dino) => {
+//       dinosaurs.push(dino);
+//     });
+//     return secondDinosaurJSON();
+//   }).then((results2) => {
+//     results2.forEach((dino) => {
+//       dinosaurs.push(dino);
+//     });
+//     return thirdDinosaurJSON();
+//   }).then((results3) => {
+//     results3.forEach((dino) => {
+//       dinosaurs.push(dino);
+//     });
+//     makeDinos();  // console.log(dinosaurs);
+//   });
+// };
 
 //OLD WAY OF MULTIPLE JSON GETTER
 // const dinoGetter = () => {
@@ -126,6 +147,7 @@ module.exports = { initializer, getDinosaurs };
 //   });
 // };
 
+
 },{"./dom":2}],2:[function(require,module,exports){
 'use strict';
 let output = $('#dinosaur-container');
@@ -143,6 +165,8 @@ const printToDom = (strang) => {
 };
 
 module.exports = { domString };
+
+
 },{}],3:[function(require,module,exports){
 'use strict';
 const data = require('./data');

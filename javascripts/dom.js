@@ -14,3 +14,4 @@ const printToDom = (strang) => {
 };
 
 module.exports = { domString };
+
